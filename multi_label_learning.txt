@@ -1,0 +1,57 @@
+#多标签问题
+使用HDF5进行处理
+生成HDF5数据源
+import h5py
+import os
+import cv2
+import math
+import numpy as np
+import re
+root_path=图像位置
+with open(label文件，'r') as f:
+  lines=f.readlines()
+num=len(lines)
+radom.shuffle(lines)#洗牌操作，打乱原本顺序
+imgAccu=0
+imgs=np.zeros([num,3,224,224])#定义图像数据
+labels=np.zeros([num,10])#定义label数据，num个数据，10个分类
+for i in range(num):
+  line=lines[i]
+  segments=re.split('ls+',line)[:-1]
+  print segments[0]
+  img=cv2.imread(os.path.join(root_path,segments[0]))#找到图像数据路径
+  img=cv2.resize(img,(224,224))#最终hdf5的单个数据大小
+  img=img.transpose(2,0,1)#将通道数提前，把第三列通道提前
+  imgs[i,:,:,:]=img.astype(np.float32)
+  for j in range(10):
+    label[i,j]=float(segments[j+1])*224/256#图像在进行大小变化后，label位置也需要同等变换
+batchSize=1#一般不超过8000
+batchNum=int(math.cell(1.0*num/batchSize))
+#数据预处理
+imgsMean=np.mean(imgs,axis=0)
+labelsMean=np.mean(labels,axis=0)
+labels=(labels-labelsMean)/10
+
+if os.path.exists('训练列表')：
+  os.remove("训练列表")
+if os.path.exists("测试列表")：
+  os.remove("测试列表")
+comp_kwargs={'compression':'gzip','compression_opts':1}
+for i in range(batchNum):
+  start=i*batchSize
+  end=min((i+1)*batchSize,num)
+  if i<batchNum-1:
+    filename="xxx/train{0}.h5",format(i)
+  else:
+    filename="xxx/test{0}.h5".format(i-batchNum+1)
+  print filename
+  with h5py.File(filename,'w') as f:
+  #GPU一般都是用float32进行运算
+    f.creat_dataset('data',data=np.array((imgs[start:end]-imgsMean)/255).astype(np.float32),**compkwargs)
+    f.creat_dataset('label',data=np.array(labels[start:end]).astype(np.float32),**comp_kwargs)
+  if i<batchNum=1:
+    with  open('xxx/trainlist.txt','a') as f:
+      f.write(os.path.join.getcwd(),'train{0}.h5'.format(i)+'\n')
+  else:
+    with open('xxx/testlist.txt','a') as f:
+      f.write(os.path.join.getcwd(),'test{0}.h5'.format(i-batchNum+1)+'\n')

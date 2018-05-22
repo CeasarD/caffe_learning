@@ -1,0 +1,5 @@
+#使用python进行自定义创建新的layer
+1.需要在makefile.config文件中将with_python_layer=1打开
+2.在net文件中写layer信息
+3.创建自己的层，需要创建继承caffe.layer的层类,还要包括setup、reshape、forward、backword四个函数
+4.在层文件中进行方法调用、reshape和维度转换，最终调用forward函数进行前向传播

@@ -1,0 +1,26 @@
+solver layer super param
+caffe提供六种优化算法
+  Stochastic Gradient Descent(type:"SGD")随机梯度下降算法
+  AdaDelta（type："AdaDelta")
+  Adaptive Gradient(type:"AdaGrad")
+  Adam(type:"Adam")
+  Nesterov's Accelerated Gradient(type:"Nesterov")
+  RMSprop(type:"RMSProp")
+test_iter:是测试样本数量，实际是test_iter*batch
+test_interval:是测试间隔，每训练test_interval次进行一次测试
+base_lr:基础学习率
+lr_policy:学习率调整策略
+  fixed保持学习率不变
+  step如果使用step模式需要额外设置一个stepsize，返回base_lr*gamma^(iter/stepsize)
+  exp 返回base_lr*gamma^iter,iter是当前迭代次数
+  inv 还需要一个power，返回base_lr*(1+gamma*iter)*(-power)
+  multistep 需要一个stepvalue,这个参数和step相似，step是均匀等间隔变化，而multistep
+  是根据stepvalue值变化
+  poly 学习率进行多项式误差，返回base_lr*(1-iter/max_iter)^(power)
+  sigmoid 学习率进行sigmoid衰减，返回base_lr*(1/(1+exp(-gamma*(iter-stepsize))))
+momentum: 动量
+display 间隔多少次进行显示，0为不显示
+max_iter:最大迭代次数
+snapshot 快照，将训练出的model，每多少次进行一次保存
+snapshot_prefix 保存位置
+solver_mode:用于选择运行模式，cpu或gpu

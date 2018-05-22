@@ -1,0 +1,42 @@
+#computing layer
+param里：
+  lr_mult是当前的学习率，最新的学习率是solver里和当前的乘积为实际的学习率
+  第一个是w的第二个是b的
+convolution_param:
+  num_output是卷积核个数（过滤器个数、深度）
+  kernel_size卷积核大小（其中卷积核的深度自动是上一层的深度值，即上一侧的num_output）
+  stride是滑动窗口的步长
+  pad是用于在图像边界也需要进行计时，需要补充的边界宽度
+  weight_filler是卷积核初始化
+    type卷积核初始化方式
+  bias_filler偏差初始化
+    tpye初始化方式
+输入的大小 n*c0*w0*h0
+输出大小 n*c1*w1*h1
+w1=(w0+2*pad-kernel_size)/stride+1
+h1=(h0+2*pad-kernel_size)/stride+1
+#convolution_layer
+layer{
+  name:"conv1"
+  type:"Convolution"
+  bottom:"data"
+  top:"conv1"
+  param{
+  lr_mult:1#w在con1中的学习率
+  }
+  param{
+  lr_mult:2#b在con1中的学习率
+  }
+  convolution_param{
+    num_output:20
+    kernel_size:5
+    stride:1
+    pad:0
+    weight_filler{
+      type:"xavier"
+    }
+    bias_filler{
+      type:"constant"
+    }
+  }
+}

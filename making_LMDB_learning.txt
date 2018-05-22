@@ -1,0 +1,5 @@
+#make LMDB
+keras图像数据增强，需要使用pip install theamo，pip install keras
+目录结构
+  主目录下需要包括训练数据文件夹、val验证集文件夹、train的proto文件、solver文件、
+  lmdb.sh文件用于生产lmdb数据，训练文件夹下需要按分类进行文件夹区分

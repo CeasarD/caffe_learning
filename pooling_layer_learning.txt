@@ -1,0 +1,17 @@
+#computing layer
+pooling_param:
+  pool是池化方法
+  kernel_size：池化核大小
+  stride：池化步长
+#Pooling layer
+layer{
+  name:"pool1"
+  type:"Pooling"
+  bottom:"conv1"
+  top:"pool1"
+  pooling_param{
+    pool:MAX
+    kernel_size:3
+    stride:2
+  }
+}

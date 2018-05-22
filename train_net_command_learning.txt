@@ -1,0 +1,15 @@
+#使用命令行训练网络
+sudo sh ./build/tools/caffe train --solver=examples/mnist/train_lenet.sh
+-solver:是必选参数。一个protocol buffer类型文件，即模型的配置文件。如：
+./build/tools/caffe train -solver examples/mnist/lenet_solver.prototxt
+
+-gpu 可选参数。该参数用来指定哪一块gpu运行，根据GPU的id进行选择，如果设置为‘-gpu all’则
+使用所有的GPU运行，单独指定一块GPU只加编号即可
+./build/tools/caffe train -solver examples/mnist/lenet_solver.prototxt -gpu 2
+
+-weights:可选参数。用预先训练好的权重来fine-tuning模型，需要一个caffemodel如：
+./build/tools/caffe train -solver examples/finetuning_on_flickr_style/solver.prototxt
+-weights models/xxx.coffemodel
+
+#测试网络
+time参数用来在屏幕上显示程序运行时间。

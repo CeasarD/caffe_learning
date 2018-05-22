@@ -1,0 +1,3 @@
+#computing layer
+reshape_param:
+  dim的0表示不变，-1表示自行推断，其他值表示大小

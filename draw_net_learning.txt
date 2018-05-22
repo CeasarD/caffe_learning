@@ -1,0 +1,13 @@
+#绘制网络结构图
+#计算数据均值，使用caffe的工具
+sudo xxx/caffe/build/tools/compute_image_mean xxx/xxx.lmdb xxx/xxx.binaryproto
+绘制网络步骤
+1.安装graphviz
+sudo apt-get install GraphViz
+2.安装pydot
+sudo pip install pydot
+
+sudo python python/draw_net.py xxx/xxx.prototxt xxx/xxx.png --rankdir=BT
+第一个参数是网络文件
+第二个是图片位置及名称
+第三个有四种，LR，RL，TB，BT用来表示网络绘制方向
